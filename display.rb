@@ -52,10 +52,7 @@ class Display
           end
       end
     end
-    # computer_pieces
     moves = []
-    # pieces = get_computer_pieces(board)
-    # newBoard = @board.dup
     computer_pieces.each do |piece|
       piece_moves = piece.valid_moves
       piece_moves.each do |move|
@@ -67,10 +64,7 @@ class Display
 
   def receive_computer_input()
     best_move = negamax(@board, 2, -100000, 100000, -1)
-    # debugger
-    # p best_move
     old_best_move = evaluation(@board)
-    # debugger
     @board.move_piece(best_move[0][0], best_move[0][1])
   end
 
@@ -92,18 +86,14 @@ class Display
 
   def negamax(board, depth, a, b, color)
     if depth == 0
-      # debugger
       return color * board.evaluate()
     end
     get_color = color == 1 ? :W : :BLK
     moves = get_computer_moves(board, get_color)
-    # debugger
     best_val = -100000
     best_move = nil
     moves.each do |move|
       new_board = board.dup
-      # p move
-      # p new_board[move[0]].class
       new_board.move_piece(move[0], move[1])
 
       value = -negamax(new_board, depth - 1, -b, -a, -color)

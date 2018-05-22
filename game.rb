@@ -4,10 +4,13 @@ require_relative "computer_player"
 
 class Game
 
-  def initialize
+  def initialize(type)
     @player1 = HumanPlayer.new("W")
-    # @player2 = HumanPlayer.new("BLK")
-    @player2 = ComputerPlayer.new("BLK")
+    if type == '1'
+      @player2 = ComputerPlayer.new("BLK")
+    else
+      @player2 = HumanPlayer.new("BLK")
+    end
     @current_player = @player1
     @display = Display.new(@current_player)
   end
@@ -45,7 +48,8 @@ class Game
 end
 
 if __FILE__ == $PROGRAM_NAME
-
-  g = Game.new
+  p 'Input 0 for singleplayer or 1 for multiplayer'
+  input = gets.chomp
+  g = Game.new(input)
   g.play
 end

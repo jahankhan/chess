@@ -26,7 +26,4 @@ module SlidingPiece
     end
     return output
   end
-
-
-
 end

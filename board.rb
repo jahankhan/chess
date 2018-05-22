@@ -86,7 +86,6 @@ class Board
   end
 
   def move_piece(start_pos, end_pos)
-    # debugger
     validate!(start_pos,end_pos)
     valid_moves_arr = self[start_pos].valid_moves
     if valid_moves_arr.include?(end_pos)
@@ -97,14 +96,11 @@ class Board
         self[end_pos].color == :W ? @w_kings_pos=end_pos : @b_kings_pos=end_pos
       end
     else
-      # debugger
       raise 'Invalid move'
-
     end
   end
 
   def move_piece!(start_pos, end_pos)
-
     validate!(start_pos,end_pos)
     self[end_pos] = self[start_pos]
     self[end_pos].pos = end_pos
@@ -113,17 +109,6 @@ class Board
       self[end_pos].color == :W ? @w_kings_pos=end_pos : @b_kings_pos=end_pos
     end
   end
-  #
-  # def castle(start_pos, end_pos)
-  #
-  #   # validate!(start_pos,end_pos)
-  #   self[end_pos] = self[start_pos]
-  #   self[end_pos].pos = end_pos
-  #   self[start_pos] = NullPiece.instance
-  #   if self[end_pos].is_a?(King)
-  #     self[end_pos].color == :W ? @w_kings_pos=end_pos : @b_kings_pos=end_pos
-  #   end
-  # end
 
   def validate!(start_pos,end_pos)
     unless valid_pos?(start_pos) && valid_pos?(end_pos)

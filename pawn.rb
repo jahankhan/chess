@@ -34,14 +34,12 @@ class Pawn < Piece
     starting_pos = pos
     move_dirs_arr = move_dirs
     move_dirs_arr.each do |move|
-      # debugger
       newpos= starting_pos.map.with_index do |el, i|
         el + move[i]
       end
       if board.validate!(starting_pos,newpos) && !DIAGONALS.include?(move)
         output.push(newpos)
       else
-        # debugger
         if valid_capture(move, newpos)
           output.push(newpos)
         end
