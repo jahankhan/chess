@@ -113,6 +113,17 @@ class Board
       self[end_pos].color == :W ? @w_kings_pos=end_pos : @b_kings_pos=end_pos
     end
   end
+  #
+  # def castle(start_pos, end_pos)
+  #
+  #   # validate!(start_pos,end_pos)
+  #   self[end_pos] = self[start_pos]
+  #   self[end_pos].pos = end_pos
+  #   self[start_pos] = NullPiece.instance
+  #   if self[end_pos].is_a?(King)
+  #     self[end_pos].color == :W ? @w_kings_pos=end_pos : @b_kings_pos=end_pos
+  #   end
+  # end
 
   def validate!(start_pos,end_pos)
     unless valid_pos?(start_pos) && valid_pos?(end_pos)
@@ -173,6 +184,30 @@ class Board
 
   def get_king_pos(color)
     color == :BLK ? @b_kings_pos : @w_kings_pos
+  end
+
+  def evaluate
+    value = 0
+    self.grid.each do |row|
+      row.each do |square|
+        # debugger
+        case square.class.to_s
+        when 'NullPiece'
+          next
+        when 'Pawn'
+          square.color == :W ? value += 1 : value -= 1
+        when 'Bishop', 'Knight'
+          square.color == :W ? value += 3 : value -= 3
+        when 'Rook'
+          square.color == :W ? value += 5 : value -= 5
+        when 'Queen'
+          square.color == :W ? value += 9 : value -= 9
+        when 'King'
+          square.color == :W ? value += 100 : value -= 100
+        end
+      end
+    end
+    value
   end
 
   def dup

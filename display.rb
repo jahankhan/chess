@@ -60,13 +60,41 @@ class Display
         # end
       end
     end
+    # moves = []
+    # while moves.length == 0
+    #   piece = computer_pieces.sample
+    #   moves = piece.get_moves
+    # end
+    # value = @board.evaluate()
+    best_move = minimax(computer_pieces)
+    # debugger
+    # move = moves.sample
+    @board.move_piece(best_move[0], best_move[1])
+  end
+
+  def minimax(pieces)
     moves = []
-    while moves.length == 0
-      piece = computer_pieces.sample
-      moves = piece.get_moves
+    # newBoard = @board.dup
+    pieces.each do |piece|
+      piece_moves = piece.get_moves
+      piece_moves.each do |move|
+        moves << [piece.pos, move]
+      end
     end
-    move = moves.sample
-    @board.move_piece(piece.pos, move)
+    # debugger
+    best_val = -10000
+    best_move = nil
+    moves.each do |move|
+      newBoard = @board.dup
+      newBoard.move_piece(move[0], move[1])
+      value = -newBoard.evaluate()
+      if value > best_val
+        best_val = value
+        best_move = move
+      end
+      # debugger
+    end
+    best_move
   end
 
   def reset_pos
