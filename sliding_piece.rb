@@ -4,7 +4,6 @@ module SlidingPiece
 
   include SteppingPiece
 
-
   def moves(move_dirs_arr)
     output = []
     starting_pos = pos

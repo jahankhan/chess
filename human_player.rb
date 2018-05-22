@@ -4,7 +4,6 @@ class HumanPlayer
     @name = name
   end
 
-
   def make_move(display)
     display.render
   end

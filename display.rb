@@ -78,7 +78,6 @@ class Display
     moves.each do |move|
       new_board = board.dup
       new_board.move_piece(move[0], move[1])
-
       value = -negamax(new_board, depth - 1, -b, -a, -color)
       if value.is_a?(Array)
         a = [a, value.last].max
@@ -86,7 +85,6 @@ class Display
         a = [a, value].max
       end
       return a if a >= b
-
       if value > best_val
         best_move = move
         best_val = value

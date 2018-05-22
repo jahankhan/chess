@@ -1,6 +1,7 @@
 require "singleton"
 
 class NullPiece
+  
   include Singleton
 
   def dup(board)
