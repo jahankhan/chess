@@ -43,58 +43,79 @@ class Display
     1
   end
 
-  def receive_computer_input
-    # debugger
+  def get_computer_moves(board, color)
     computer_pieces = []
-    @board.grid.each do |row|
+    board.grid.each do |row|
       row.each do |square|
-        # debugger
-        # square.each do |idk|
-          # debugger
-          # p square.pos
-          if !square.is_a?(NullPiece) && square.color == @current_player.name.to_sym
-            # debugger
-            # p square.pos
+          if !square.is_a?(NullPiece) && square.color == color
             computer_pieces << square
           end
-        # end
       end
     end
-    # moves = []
-    # while moves.length == 0
-    #   piece = computer_pieces.sample
-    #   moves = piece.get_moves
-    # end
-    # value = @board.evaluate()
-    best_move = minimax(computer_pieces)
-    # debugger
-    # move = moves.sample
-    @board.move_piece(best_move[0], best_move[1])
-  end
-
-  def minimax(pieces)
+    # computer_pieces
     moves = []
+    # pieces = get_computer_pieces(board)
     # newBoard = @board.dup
-    pieces.each do |piece|
-      piece_moves = piece.get_moves
+    computer_pieces.each do |piece|
+      piece_moves = piece.valid_moves
       piece_moves.each do |move|
         moves << [piece.pos, move]
       end
     end
+    moves
+  end
+
+  def receive_computer_input()
+    best_move = negamax(@board, 2, -1)
     # debugger
+    # p best_move
+    old_best_move = evaluation(@board)
+    # debugger
+    @board.move_piece(best_move[0][0], best_move[0][1])
+  end
+
+  def evaluation(board)
     best_val = -10000
     best_move = nil
+    moves = get_computer_moves(board, :BLK)
     moves.each do |move|
-      newBoard = @board.dup
-      newBoard.move_piece(move[0], move[1])
-      value = -newBoard.evaluate()
+      new_board = board.dup
+      new_board.move_piece(move[0], move[1])
+      value = -new_board.evaluate()
       if value > best_val
         best_val = value
         best_move = move
       end
-      # debugger
     end
     best_move
+  end
+
+  def negamax(board, depth, color)
+    if depth == 0
+      # debugger
+      return color * board.evaluate()
+    end
+    get_color = color == 1 ? :W : :BLK
+    moves = get_computer_moves(board, get_color)
+    # debugger
+    best_val = -10000
+    best_move = nil
+    moves.each do |move|
+      new_board = board.dup
+      # p move
+      # p new_board[move[0]].class
+      new_board.move_piece(move[0], move[1])
+
+      value = -negamax(new_board, depth - 1, -color)
+      if value > best_val
+        best_move = move
+        best_val = value
+      end
+    end
+    if depth == 2
+      return [best_move, best_val]
+    end
+    return best_val
   end
 
   def reset_pos

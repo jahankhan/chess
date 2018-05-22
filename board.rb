@@ -97,7 +97,7 @@ class Board
         self[end_pos].color == :W ? @w_kings_pos=end_pos : @b_kings_pos=end_pos
       end
     else
-
+      # debugger
       raise 'Invalid move'
 
     end
@@ -156,8 +156,11 @@ class Board
     king_pos = get_king_pos(color)
     @grid.each_with_index do |row,row_idx|
       row.each_with_index do |square,col_idx|
-        if square.is_a?(Piece) && square.color!=color
-          return true if square.get_moves.any?{ |move| move==king_pos}
+        if square.is_a?(Piece) && square.color != color
+          if square.get_moves.any?{ |move| move == king_pos }
+            # debugger
+            return true
+          end
         end
       end
     end
