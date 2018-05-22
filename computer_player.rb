@@ -4,7 +4,6 @@ class ComputerPlayer
     @name = name
   end
 
-
   def make_move(display)
     display.receive_computer_input
   end

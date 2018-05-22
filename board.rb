@@ -8,7 +8,6 @@ require_relative 'king'
 require_relative 'knight'
 require_relative 'null_piece'
 require_relative 'pawn'
-# require 'colorize'
 
 class Board
   attr_reader :grid
@@ -54,7 +53,6 @@ class Board
         end
       end
     end
-
   end
 
   def create_piece(name, pos, color)
@@ -97,16 +95,6 @@ class Board
       end
     else
       raise 'Invalid move'
-    end
-  end
-
-  def move_piece!(start_pos, end_pos)
-    validate!(start_pos,end_pos)
-    self[end_pos] = self[start_pos]
-    self[end_pos].pos = end_pos
-    self[start_pos] = NullPiece.instance
-    if self[end_pos].is_a?(King)
-      self[end_pos].color == :W ? @w_kings_pos=end_pos : @b_kings_pos=end_pos
     end
   end
 
@@ -206,5 +194,17 @@ class Board
       end
     end
     return duped_board
+  end
+
+  def move_piece!(start_pos, end_pos)
+    # doesn't check if move is valid (not putting you in check) so that
+    # we can make illegal moves for testing
+    validate!(start_pos,end_pos)
+    self[end_pos] = self[start_pos]
+    self[end_pos].pos = end_pos
+    self[start_pos] = NullPiece.instance
+    if self[end_pos].is_a?(King)
+      self[end_pos].color == :W ? @w_kings_pos=end_pos : @b_kings_pos=end_pos
+    end
   end
 end

@@ -5,7 +5,6 @@ class Bishop < Piece
 
   include SlidingPiece
 
-
   def to_s
     color == :W ? "\u2657" : "\u265D"
   end
@@ -21,5 +20,4 @@ class Bishop < Piece
   def dup(board)
     return Bishop.new(name,board,pos,color)
   end
-
 end

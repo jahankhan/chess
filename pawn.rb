@@ -28,7 +28,6 @@ class Pawn < Piece
     color == :W ? "\u2659" : "\u265F"
   end
 
-
   def get_moves
     output = []
     starting_pos = pos
@@ -51,12 +50,11 @@ class Pawn < Piece
   def valid_capture(move, newpos)
     DIAGONALS.include?(move) &&
       board.valid_pos?(newpos) &&
-        !board[newpos].is_a?(NullPiece) &&
-          board[newpos].color != color
+      !board[newpos].is_a?(NullPiece) &&
+      board[newpos].color != color
   end
 
   def dup(board)
     return Pawn.new(name,board,pos,color)
   end
-
 end

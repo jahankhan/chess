@@ -8,7 +8,6 @@ class Piece
     @can_castle = true
   end
 
-
   def to_s
 
   end
@@ -37,6 +36,4 @@ class Piece
     duped.move_piece!(pos, end_pos)
     duped.in_check?(color)
   end
-
-
 end

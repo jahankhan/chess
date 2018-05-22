@@ -6,5 +6,4 @@ class NullPiece
   def dup(board)
     return NullPiece.instance
   end
-
 end

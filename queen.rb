@@ -5,7 +5,6 @@ class Queen < Piece
 
   include SlidingPiece
 
-
   def to_s
     color == :W ? "\u2655" : "\u265B"
   end
@@ -21,5 +20,4 @@ class Queen < Piece
   def dup(board)
     return Queen.new(name,board,pos,color)
   end
-
 end

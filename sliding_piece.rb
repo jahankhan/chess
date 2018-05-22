@@ -11,7 +11,6 @@ module SlidingPiece
     move_dirs_arr.each do |dir|
       while true
         newpos= get_new_pos(starting_pos, dir)
-
         if board.validate!(starting_pos,newpos)
           output.push(newpos)
           starting_pos = newpos
