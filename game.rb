@@ -1,17 +1,18 @@
 require_relative "display"
 require_relative "human_player"
+require_relative "computer_player"
 
 class Game
 
   def initialize
-    @display = Display.new
-    @player1 = HumanPlayer.new("Jeff")
-    @player2 = HumanPlayer.new("Fred")
+    @player1 = HumanPlayer.new("W")
+    # @player2 = HumanPlayer.new("BLK")
+    @player2 = ComputerPlayer.new("BLK")
     @current_player = @player1
+    @display = Display.new(@current_player)
   end
 
   def play
-
     until game_over?
       begin
         @current_player.make_move(@display)
@@ -34,6 +35,7 @@ class Game
 
   def swap_current_player
     @current_player = @current_player == @player1 ? @player2 : @player1
+    @display.current_player = @current_player
     if @current_player == @player2
       @display.cursor.cursor_pos = [0,0]
     else
