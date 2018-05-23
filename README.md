@@ -97,3 +97,5 @@ module SteppingPiece
   end
 end
 ```
+
+<img src="chess.gif" />

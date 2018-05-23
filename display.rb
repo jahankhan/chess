@@ -63,7 +63,7 @@ class Display
   end
 
   def receive_computer_input()
-    best_move = negamax(@board, 2, -100000, 100000, -1)
+    best_move = negamax(@board, 3, -100000, 100000, -1)
     @board.move_piece(best_move[0][0], best_move[0][1])
   end
 
@@ -90,7 +90,7 @@ class Display
         best_val = value
       end
     end
-    if depth == 2
+    if depth == 3
       return [best_move, best_val]
     end
     return best_val
@@ -125,6 +125,7 @@ class Display
       end
       puts ""
     end
+    @current_player.name.to_sym == :W ? puts("White to play") : puts("Black to play")
   end
 
   def get_bg_color(i, j)
