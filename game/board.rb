@@ -1,13 +1,13 @@
-require_relative 'piece'
+require_relative '../pieces/piece'
 require_relative 'display'
 require_relative 'cursor'
-require_relative 'rook'
-require_relative 'bishop'
-require_relative 'queen'
-require_relative 'king'
-require_relative 'knight'
-require_relative 'null_piece'
-require_relative 'pawn'
+require_relative '../pieces/rook'
+require_relative '../pieces/bishop'
+require_relative '../pieces/queen'
+require_relative '../pieces/king'
+require_relative '../pieces/knight'
+require_relative '../pieces/null_piece'
+require_relative '../pieces/pawn'
 
 class Board
   attr_reader :grid
@@ -124,14 +124,12 @@ class Board
     false
   end
 
-  def in_check?(color) #whether COLOR is in check
-    #find the king of color
+  def in_check?(color)
     king_pos = get_king_pos(color)
     @grid.each_with_index do |row,row_idx|
       row.each_with_index do |square,col_idx|
         if square.is_a?(Piece) && square.color != color
           if square.get_moves.any?{ |move| move == king_pos }
-            # debugger
             return true
           end
         end
@@ -144,14 +142,11 @@ class Board
     king_pos = get_king_pos(color)
     @grid.each_with_index do |row,row_idx|
       row.each_with_index do |square,col_idx|
-        #grab square if not nil
         if square.is_a?(Piece) && square.color==color
-          #get all valid moves of square
           return false unless square.valid_moves.empty?
         end
       end
     end
-    #iterate through all valid moves and find one where in_check? false
     if in_check?(color) && self[king_pos].valid_moves.empty?
       return true
     end
@@ -166,7 +161,6 @@ class Board
     value = 0
     self.grid.each do |row|
       row.each do |square|
-        # debugger
         case square.class.to_s
         when 'NullPiece'
           next
@@ -197,8 +191,6 @@ class Board
   end
 
   def move_piece!(start_pos, end_pos)
-    # doesn't check if move is valid (not putting you in check) so that
-    # we can make illegal moves for testing
     validate!(start_pos,end_pos)
     self[end_pos] = self[start_pos]
     self[end_pos].pos = end_pos

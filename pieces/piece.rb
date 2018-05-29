@@ -2,23 +2,23 @@ class Piece
   attr_accessor :pos, :board, :color, :name, :can_castle
   def initialize(name,board,pos,color)
     @color=color
-    @board= board #current board
-    @pos = pos #current pos
+    @board= board
+    @pos = pos
     @name = name
     @can_castle = true
   end
-
-  def to_s
-
-  end
-
-  def get_moves
-
-  end
-
-  def dup(board)
-
-  end
+  # 
+  # def to_s
+  #
+  # end
+  #
+  # def get_moves
+  #
+  # end
+  #
+  # def dup(board)
+  #
+  # end
 
   def valid_moves
     valid_moves_arr = []

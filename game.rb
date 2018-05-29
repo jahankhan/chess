@@ -1,6 +1,6 @@
-require_relative "display"
-require_relative "human_player"
-require_relative "computer_player"
+require_relative "game/display"
+require_relative "game/human_player"
+require_relative "game/computer_player"
 
 class Game
 

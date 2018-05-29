@@ -1,5 +1,3 @@
-require 'byebug'
-
 class Pawn < Piece
 
   DIAGONALS = [[1,1],[-1,1],[-1,-1],[1,-1]]
